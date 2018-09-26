@@ -1,9 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+const SubSystemContainer = styled.li`
+  list-style: none;
+  padding: 10px;
+  margin: 10px;
+  border: 5px solid hsl(${props => props.percentageUsed || 100}, 100%, 50%);
+  background-color: hsla(${props => props.percentageUsed || 100}, 100%, 50%, .3);
+`;
 
 const SubSystem = ({systemName, powerUsage, powerUsed, updatePowerUsage}) => {
   return(
-    <li>
+    <SubSystemContainer percentageUsed={String(((powerUsage * 100) - 100) * -1)}>
       <h3>{systemName}</h3>
       <ul>
         <li>Power Usage: {`${(powerUsage * 100).toFixed(0)}%`}</li>
@@ -13,7 +22,7 @@ const SubSystem = ({systemName, powerUsage, powerUsed, updatePowerUsage}) => {
         </li>
         <li>Power Used: {powerUsed}</li>
       </ul>
-    </li>
+    </SubSystemContainer>
   );
 }
 
