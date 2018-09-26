@@ -10,7 +10,7 @@ class System extends Component {
       name: this.props.name,
       powerUsage: this.props.powerUsage,
       totalPower: this.props.totalPower,
-      totalSubSystems: this.props.totalSubSystems,
+      subSystems: this.props.subSystems,
     };
   }
 
@@ -22,30 +22,20 @@ class System extends Component {
         <ul>
           <li>Power Usage: {this.state.powerUsage}</li>
           <li>Total Power: {this.state.totalPower}</li>
-          <li>Total SubSystems: {this.state.totalSubSystems}</li>
+          <li>Total SubSystems: {this.state.subSystems.length}</li>
         </ul>
         <h2>Sub Systems</h2>
         <ol>
-          <SubSystem
-            systemName={`Sub System 0`}
-            powerUsage={.20}
-            powerUsed={200}
-          />
-          <SubSystem
-            systemName={`Sub System 1`}
-            powerUsage={.30}
-            powerUsed={300}
-          />
-          <SubSystem
-            systemName={`Sub System 2`}
-            powerUsage={.25}
-            powerUsed={250}
-          />
-          <SubSystem
-            systemName={`Sub System 3`}
-            powerUsage={.25}
-            powerUsed={250}
-          />
+          {this.state.subSystems.map((subSystem, index) => {
+            return(
+              <SubSystem
+                key={index}
+                systemName={subSystem.systemName}
+                powerUsage={subSystem.powerUsage}
+                powerUsed={subSystem.powerUsed}
+              />
+            );
+          })}
         </ol>
       </section>
     );
@@ -56,7 +46,7 @@ System.propTypes = {
   name: PropTypes.string.isRequired,
   powerUsage: PropTypes.number.isRequired,
   totalPower: PropTypes.number.isRequired,
-  totalSubSystems: PropTypes.number,
+  subSystems: PropTypes.array.isRequired,
 }
 
 export default System;

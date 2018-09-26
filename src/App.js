@@ -11,7 +11,28 @@ class App extends Component {
           name: 'System 1',
           powerUsage: 0,
           totalPower: 1000,
-          totalSubSystems: 4,
+          subSystems: [
+            {
+              systemName: 'Sub System 0',
+              powerUsage: .20,
+              powerUsed: 200
+            },
+            {
+              systemName: 'Sub System 1',
+              powerUsage: .30,
+              powerUsed: 300
+            },
+            {
+              systemName: 'Sub System 2',
+              powerUsage: .25,
+              powerUsed: 250
+            },
+            {
+              systemName: 'Sub System 3',
+              powerUsage: .25,
+              powerUsed: 250
+            }
+          ]
         }
       ]
     };
@@ -25,12 +46,17 @@ class App extends Component {
         </header>
         <main>
           <h2>Major Systems</h2>
-          <System 
-            name={this.state.systems[0].name}
-            powerUsage={this.state.systems[0].powerUsage}
-            totalPower={this.state.systems[0].totalPower}
-            totalSubSystems={this.state.systems[0].totalSubSystems}
-          />
+          {this.state.systems.map((system, index) => {
+            return(
+              <System
+                key={index}
+                name={system.name}
+                powerUsage={system.powerUsage}
+                totalPower={system.totalPower}
+                subSystems={system.subSystems}
+              />
+            );
+          })}
         </main>
       </div>
     );
