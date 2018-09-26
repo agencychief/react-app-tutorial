@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import SubSystem from './SubSystem';
 
 class System extends Component {
@@ -6,16 +7,17 @@ class System extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      powerUsage: 0,
-      totalPower: 1000,
-      totalSubSystems: 4,
+      name: this.props.name,
+      powerUsage: this.props.powerUsage,
+      totalPower: this.props.totalPower,
+      totalSubSystems: this.props.totalSubSystems,
     };
   }
 
   render() {
     return(
       <section>
-        <h1>System 1</h1>
+        <h1>{this.state.name}</h1>
         <h2>System Stats</h2>
         <ul>
           <li>Power Usage: {this.state.powerUsage}</li>
@@ -48,7 +50,13 @@ class System extends Component {
       </section>
     );
   }
-  
+}
+
+System.propTypes = {
+  name: PropTypes.string.isRequired,
+  powerUsage: PropTypes.number.isRequired,
+  totalPower: PropTypes.number.isRequired,
+  totalSubSystems: PropTypes.number,
 }
 
 export default System;
