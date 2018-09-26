@@ -8,10 +8,28 @@ class System extends Component {
     super(props);
     this.state = {
       name: this.props.name,
-      powerUsage: this.props.powerUsage,
-      totalPower: this.props.totalPower,
+      totalPowerUsed: this.props.powerUsage,
+      totalPowerUnits: this.props.totalPower,
       subSystems: this.props.subSystems,
     };
+    this.sumTotalPowerUsage = this.sumTotalPowerUsage.bind(this);
+    this.updatePowerUsage = this.updatePowerUsage.bind(this);
+  }
+
+  sumTotalPowerUsage() {
+    let totalPowerUsage = 0;
+    this.state.subSystems.map(subSystem => totalPowerUsage += subSystem.powerUsed);
+    this.setState({totalPowerUsed: totalPowerUsage});
+  }
+
+  updatePowerUsage(event, id) {
+    let currentPercentage = Number(event.target.value / 100);
+
+    const currentSubSystem = this.state.subSystems.find(subSystem => subSystem.id === id);
+    currentSubSystem.powerUsage = currentPercentage;
+    currentSubSystem.powerUsed = Math.floor(this.state.totalPowerUnits * currentPercentage);
+    this.sumTotalPowerUsage();
+    this.setState(() => currentSubSystem);
   }
 
   render() {
@@ -20,8 +38,8 @@ class System extends Component {
         <h1>{this.state.name}</h1>
         <h2>System Stats</h2>
         <ul>
-          <li>Power Usage: {this.state.powerUsage}</li>
-          <li>Total Power: {this.state.totalPower}</li>
+          <li>Power Usage: {this.state.totalPowerUsed}</li>
+          <li>Total Power: {this.state.totalPowerUnits}</li>
           <li>Total SubSystems: {this.state.subSystems.length}</li>
         </ul>
         <h2>Sub Systems</h2>
@@ -33,6 +51,7 @@ class System extends Component {
                 systemName={subSystem.systemName}
                 powerUsage={subSystem.powerUsage}
                 powerUsed={subSystem.powerUsed}
+                updatePowerUsage={(event) => this.updatePowerUsage(event, subSystem.id)}
               />
             );
           })}

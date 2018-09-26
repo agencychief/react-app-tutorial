@@ -13,24 +13,28 @@ class App extends Component {
           totalPower: 1000,
           subSystems: [
             {
+              id: 0,
               systemName: 'Sub System 0',
-              powerUsage: .20,
-              powerUsed: 200
+              powerUsage: 0,
+              powerUsed: 0
             },
             {
+              id: 1,
               systemName: 'Sub System 1',
-              powerUsage: .30,
-              powerUsed: 300
+              powerUsage: 0,
+              powerUsed: 0
             },
             {
+              id: 2,
               systemName: 'Sub System 2',
-              powerUsage: .25,
-              powerUsed: 250
+              powerUsage: 0,
+              powerUsed: 0
             },
             {
+              id: 3,
               systemName: 'Sub System 3',
-              powerUsage: .25,
-              powerUsed: 250
+              powerUsage: 0,
+              powerUsed: 0
             }
           ]
         }
