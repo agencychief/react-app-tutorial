@@ -15,23 +15,23 @@ const System = () => {
       <ol>
         <SubSystem
           systemName={`Sub System 0`}
-          powerUsage={`20%`}
-          powerUsed={`200`}
+          powerUsage={.20}
+          powerUsed={200}
         />
         <SubSystem
           systemName={`Sub System 1`}
-          powerUsage={`30%`}
-          powerUsed={`300`}
+          powerUsage={.30}
+          powerUsed={300}
         />
         <SubSystem
           systemName={`Sub System 2`}
-          powerUsage={`25%`}
-          powerUsed={`250`}
+          powerUsage={.25}
+          powerUsed={250}
         />
         <SubSystem
           systemName={`Sub System 3`}
-          powerUsage={`25%`}
-          powerUsed={`250`}
+          powerUsage={.25}
+          powerUsed={250}
         />
       </ol>
     </section>
