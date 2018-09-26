@@ -1,4 +1,5 @@
 import React from 'react';
+import SubSystem from './SubSystem';
 
 const System = () => {
   return(
@@ -12,34 +13,26 @@ const System = () => {
       </ul>
       <h2>Sub Systems</h2>
       <ol>
-        <li>
-          <h3>Sub System 0</h3>
-          <ul>
-            <li>Power Usage: 20%</li>
-            <li>Power Used: 200</li>
-          </ul>
-        </li>
-        <li>
-          <h3>Sub System 1</h3>
-          <ul>
-            <li>Power Usage: 30%</li>
-            <li>Power Used: 300</li>
-          </ul>
-        </li>
-        <li>
-          <h3>Sub System 2</h3>
-          <ul>
-            <li>Power Usage: 25%</li>
-            <li>Power Used: 250</li>
-          </ul>
-        </li>
-        <li>
-          <h3>Sub System3</h3>
-          <ul>
-            <li>Power Usage: 25%</li>
-            <li>Power Used: 250</li>
-          </ul>
-        </li>
+        <SubSystem
+          systemName={`Sub System 0`}
+          powerUsage={`20%`}
+          powerUsed={`200`}
+        />
+        <SubSystem
+          systemName={`Sub System 1`}
+          powerUsage={`30%`}
+          powerUsed={`300`}
+        />
+        <SubSystem
+          systemName={`Sub System 2`}
+          powerUsage={`25%`}
+          powerUsed={`250`}
+        />
+        <SubSystem
+          systemName={`Sub System 3`}
+          powerUsage={`25%`}
+          powerUsed={`250`}
+        />
       </ol>
     </section>
   );
