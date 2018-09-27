@@ -58,7 +58,7 @@ class System extends Component {
     super(props);
     this.state = {
       name: this.props.name,
-      totalPowerUsed: this.props.powerUsage,
+      totalPowerUsed: 0,
       totalPowerUnits: this.props.totalPower,
       subSystems: this.props.subSystems,
     };
