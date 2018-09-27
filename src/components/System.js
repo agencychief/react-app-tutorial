@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 import SubSystem from './SubSystem';
 
 const SystemContainer = styled.section`
@@ -10,6 +10,8 @@ const SystemContainer = styled.section`
   justify-content: space-between;
   padding: 15px;
   margin-bottom: 10px;
+  border: 5px solid hsl(${props => props.Danger || 0}, 100%, 50%);
+
 `;
 
 const SystemTitle = styled.h1`
@@ -29,6 +31,25 @@ const SubSystemList = styled.ol`
   justify-content: flex-start;
   flex-wrap: wrap;
   padding: 0;
+`;
+
+const blink = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+
+const Message = styled.span`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 2em;
+  font-weight: bold;
+  color: ${props => props.Danger ? `hsl(0, 100%, 50%)` : `hsl(240, 100%, 50%)`};
+  animation: ${props => props.Danger ? `${blink} 1s linear alternate infinite` : `none`};
 `;
 
 class System extends Component {
@@ -62,8 +83,9 @@ class System extends Component {
   }
 
   render() {
+    let isDanger = this.state.totalPowerUnits - this.state.totalPowerUsed <= 0;
     return(
-      <SystemContainer>
+      <SystemContainer Danger={isDanger === true ? `0` : `240`}>
         <SystemTitle>{this.state.name}</SystemTitle>
         <SystemInformation>
           <h2>System Stats</h2>
@@ -89,6 +111,10 @@ class System extends Component {
             })}
           </SubSystemList>
         </SubSystemContainer>
+        {isDanger ?
+          <Message Danger>Danger</Message> :
+          <Message>System Okay</Message>
+        }
       </SystemContainer>
     );
   }
