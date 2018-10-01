@@ -1,0 +1,141 @@
+# 2-adding-new-content
+<div>
+  <header>
+    <h1>System Dashboard</h1>
+  </header>
+  <main>
+    <h2>Major Systems</h2>
+    <section>
+      <h1>System 1</h1>
+      <h2>System Stats</h2>
+      <ul>
+        <li>Power Usage: 0</li>
+        <li>Total Power: 1000</li>
+        <li>Total SubSystems: 4</li>
+      </ul>
+      <h2>Sub Systems</h2>
+      <ol>
+        <li>
+          <h3>Sub System 0</h3>
+          <ul>
+            <li>Power Usage: 20%</li>
+            <li>Power Used: 200</li>
+          </ul>
+        </li>
+        <li>
+          <h3>Sub System 1</h3>
+          <ul>
+            <li>Power Usage: 30%</li>
+            <li>Power Used: 300</li>
+          </ul>
+        </li>
+        <li>
+          <h3>Sub System 2</h3>
+          <ul>
+            <li>Power Usage: 25%</li>
+            <li>Power Used: 250</li>
+          </ul>
+        </li>
+        <li>
+          <h3>Sub System3</h3>
+          <ul>
+            <li>Power Usage: 25%</li>
+            <li>Power Used: 250</li>
+          </ul>
+        </li>
+      </ol>
+    </section>
+  </main>
+</div>
+
+# 8-get-derived-state
+systems: [
+  {
+    name: 'System 1',
+    powerUsage: 0,
+    totalPower: 1000,
+    subSystems: [
+      {
+        systemName: 'Sub System 0',
+        powerUsage: .20,
+        powerUsed: 200
+      },
+      {
+        systemName: 'Sub System 1',
+        powerUsage: .30,
+        powerUsed: 300
+      },
+      {
+        systemName: 'Sub System 2',
+        powerUsage: .25,
+        powerUsed: 250
+      },
+      {
+        systemName: 'Sub System 3',
+        powerUsage: .25,
+        powerUsed: 250
+      }
+    ]
+  }
+]
+
+# 13-add-data-from-api
+const self = this;
+    function getFacebookRepo() {
+      return axios.get('https://api.github.com/repos/facebook/create-react-app');
+    }
+    
+    function getFacebookBranches() {
+      return axios.get('https://api.github.com/repos/facebook/create-react-app/branches');
+    }
+
+    function getReduxRepo() {
+      return axios.get('https://api.github.com/repos/reduxjs/redux');
+    }
+    
+    function getReduxBranches() {
+      return axios.get('https://api.github.com/repos/reduxjs/redux/branches');
+    }
+
+    axios.all([getFacebookRepo(), getFacebookBranches(), getReduxRepo(), getReduxBranches()])
+      .then(axios.spread((facebookRepo, facebookBranches, reduxRepo, reduxBranches) => {
+        let apiSystems = [];
+        let facebookSubSystems = facebookBranches.data.map(branch => {
+          return(
+            {
+              id: branch.commit.sha,
+              systemName: branch.name,
+              powerUsage:0,
+              powerUsed: 0
+            }
+          );
+        });
+        let facebook = {
+          id: facebookRepo.data.id,
+          name: facebookRepo.data.name,
+          totalPowerUsage: 0,
+          totalPower: facebookRepo.data.stargazers_count,
+          subSystems: facebookSubSystems
+        }
+
+        let reduxSubSystems = reduxBranches.data.map(branch => {
+          return(
+            {
+              id: branch.commit.sha,
+              systemName: branch.name,
+              powerUsage:0,
+              powerUsed: 0
+            }
+          );
+        });
+        let redux = {
+          id: reduxRepo.data.id,
+          name: reduxRepo.data.name,
+          totalPowerUsage: 0,
+          totalPower: reduxRepo.data.stargazers_count,
+          subSystems: reduxSubSystems
+        }
+        apiSystems.push(facebook);
+        apiSystems.push(redux);
+        self.setState({systems: apiSystems});
+      }));
